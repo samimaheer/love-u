@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Letter for Porshi</title>
+    <style>
+        /* Basic page setup */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a; /* Initial dark background */
+            overflow: hidden;
+            transition: background-color 0.5s ease;
+        }
+
+        /* Bulb and switch container */
+        .switch-container {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Switch design */
+        .switch {
+            width: 50px;
+            height: 25px;
+            background-color: #333;
+            border-radius: 20px;
+            cursor: pointer;
+            position: relative;
+            margin-right: 10px;
+            transition: background-color 0.3s;
+        }
+
+        /* Switch button */
+        .switch-btn {
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            background-color: #ffeb3b;
+            border-radius: 50%;
+            top: 1.5px;
+            left: 2px;
+            transition: transform 0.3s;
+        }
+
+        /* Envelope design */
+        .envelope {
+            position: relative;
+            width: 200px;
+            height: 140px;
+            background-color: #ff4b5c;
+            border-radius: 8px;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+            animation: floating 3s ease-in-out infinite;
+            transition: transform 0.3s ease;
+        }
+
+        /* Envelope flap */
+        .flap {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100px;
+            background-color: #ff6b6b;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            transition: transform 0.4s ease;
+            z-index: 1;
+        }
+
+        /* Letter that slides out */
+        .letter {
+            position: absolute;
+            top: 60px;
+            width: 180px;
+            height: 100px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ff4b5c;
+            font-size: 1.2em;
+            font-weight: bold;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Buttons for opening and closing */
+        .button-container {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .button {
+            padding: 10px 20px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            margin: 0 10px;
+            cursor: pointer;
+            background-color: #ff4b5c;
+            color: #fff;
+            transition: background-color 0.3s;
+        }
+
+        /* Button hover effect */
+        .button:hover {
+            background-color: #ff6b6b;
+        }
+
+        /* Envelope shadow */
+        .envelope-shadow {
+            position: absolute;
+            top: 170px;
+            width: 220px;
+            height: 15px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 50%;
+            filter: blur(5px);
+            animation: floating-shadow 3s ease-in-out infinite;
+        }
+
+        /* Floating animation */
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes floating-shadow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Animation to show letter */
+        .envelope.open .flap {
+            transform: translateY(-100px);
+        }
+        .envelope.open .letter {
+            transform: translateY(-20px);
+            opacity: 1;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Bulb switch container -->
+    <div class="switch-container">
+        <div class="switch" onclick="toggleBulb()">
+            <div class="switch-btn"></div>
+        </div>
+        <span id="bulb-status">Turn on the bulb</span>
+    </div>
+
+    <!-- Envelope and letter -->
+    <div class="envelope">
+        <div class="flap"></div>
+        <div class="letter">I Love You Porshi ❤️</div>
+    </div>
+
+    <!-- Envelope shadow -->
+    <div class="envelope-shadow"></div>
+
+    <!-- Buttons to open and close envelope -->
+    <div class="button-container">
+        <button class="button" onclick="openEnvelope()">Open</button>
+        <button class="button" onclick="closeEnvelope()">Close</button>
+    </div>
+
+    <script>
+        // Function to toggle the bulb
+        function toggleBulb() {
+            const body = document.body;
+            const switchBtn = document.querySelector('.switch-btn');
+            const envelope = document.querySelector('.envelope');
+            const shadow = document.querySelector('.envelope-shadow');
+            const buttonContainer = document.querySelector('.button-container');
+            const bulbStatus = document.getElementById('bulb-status');
+
+            // Toggle dark and light mode
+            if (body.style.backgroundColor === 'rgb(26, 26, 26)') {
+                body.style.backgroundColor = '#ffe6f2';
+                envelope.style.display = 'flex';
+                shadow.style.display = 'block';
+                buttonContainer.style.display = 'flex';
+                switchBtn.style.transform = 'translateX(26px)';
+                bulbStatus.innerText = 'Bulb is ON';
+            } else {
+                body.style.backgroundColor = '#1a1a1a';
+                envelope.style.display = 'none';
+                shadow.style.display = 'none';
+                buttonContainer.style.display = 'none';
+                switchBtn.style.transform = 'translateX(0)';
+                bulbStatus.innerText = 'Turn on the bulb';
+            }
+        }
+
+        // Function to open the envelope
+        function openEnvelope() {
+            const envelope = document.querySelector('.envelope');
+            envelope.classList.add('open');
+        }
+
+        // Function to close the envelope
+        function closeEnvelope() {
+            const envelope = document.querySelector('.envelope');
+            envelope.classList.remove('open');
+        }
+    </script>
+
+</body>
+</html>
